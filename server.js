@@ -53,6 +53,23 @@ MongoClient.connect('mongodb://localhost:27017', function(err, client){
     })
   })
 
+  // DELETE_ALL reviews
+  server.delete('/reviews', function(req, res){
+    const reviewsCollection = db.collection('user_reviews');
+    filterObject = {};
+    reviewsCollection.deleteMany(filterObject, function(err, result){
+      if (err){
+        console.log(err);
+        res.status(500);
+        res.send();
+      }
+
+      console.log("Delete all successful.");
+      res.status(204);
+      res.send();
+    })
+  })
+
   server.listen(3000, function(){
     console.log("Listening on port 3000");
   });
